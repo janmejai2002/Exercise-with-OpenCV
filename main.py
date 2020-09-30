@@ -21,8 +21,15 @@ learningRate = 0
 bgModel = None
 
 
-def remove_background(frame, bgModel, learningRate):
-    fgmask = bgModel.apply(frame, learningRate=learningRate)
+def remove_background(frame, bgModel, lr):
+    """
+    To remove background from captured region.
+    Parameters:
+    frame: Frame/Image
+    bgModel: Background Subraction Model 
+    lr: Learning Rate for bgModel
+    """
+    fgmask = bgModel.apply(frame, learningRate=lr)
     kernel = np.ones((2, 2), np.uint8)
     fgmask = cv2.erode(fgmask, kernel, iterations=2)
     fgmask = cv2.dilate(fgmask, None, iterations=2)
